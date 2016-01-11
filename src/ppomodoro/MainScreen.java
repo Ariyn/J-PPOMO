@@ -3,22 +3,13 @@ package ppomodoro;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainScreen extends Application {
-	private static MainScreen singleton;
-	public int dataA = 0;
-	
-	public MainScreen() {
-		singleton = this;
-	}
-	
-	public static MainScreen getInstance() {
-		return singleton;
-	}
 	
 	@Override
 	public void init() throws Exception {
@@ -38,6 +29,10 @@ public class MainScreen extends Application {
 	@Override
 	public void stop() throws Exception {
 		System.out.println(Thread.currentThread().getName()+": stop 호출");
+		
+		// only for test!!
+		// must go to tray not exit
+		Platform.exit();
 	}
 	
 	private Scene testFunction() {

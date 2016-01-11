@@ -1,13 +1,10 @@
 package ppomodoro;
 
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.TimerTask;
+import java.awt.AWTException;
+import java.awt.Robot;
 
 public class AppMain {
-	static MainScreen main = null;
-	
+
 	public AppMain() {
 		System.out.println(Thread.currentThread().getName() +": AppMain 호출");
 //		AppMain.main = new MainScreen();
@@ -15,10 +12,7 @@ public class AppMain {
 	
 	public static void main(String[] args) {
 		System.out.println(Thread.currentThread().getName()+": main 호출");
-		javafx.application.Application.launch(MainScreen.class);
-		
-		main = MainScreen.getInstance();
-		System.out.println(main.dataA);
+		javafx.application.Application.launch(MainScreen.class);	
 	}
 }
 
