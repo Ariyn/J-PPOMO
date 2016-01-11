@@ -1,0 +1,5 @@
+#!/bin/bash
+
+javac /Users/hwangminuk/Documents/workspace/ppomodoro/src/ppomodoro/AppMain.java -d /Users/hwangminuk/Documents/workspace/ppomodoro/personalBin
+
+java /Users/hwangminuk/Documents/workspace/ppomodoro/personalBin/ppomodoro.AppMain
