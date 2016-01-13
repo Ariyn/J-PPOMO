@@ -13,6 +13,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 import javafx.application.Platform;
+import ppomodoro.notification.Manager;
 import ppomodoro.notification.Notification;
 
 public class AppMain {
@@ -40,11 +41,10 @@ public class AppMain {
 		//stackoverflow.com/questions/14626550/to-hide-javafx-fxml-or-javafx-swing-application-to-system-tray
 		
 //		addTray();
+
+		System.out.println(Thread.currentThread().getName()+": main 호출");	
 		
-		System.out.println(Thread.currentThread().getName()+": main 호출");
-		javafx.application.Application.launch(Notification.class);
-		
-//		javafx.application.Application.launch(MainScreen.class);	
+		javafx.application.Application.launch(MainScreen.class);	
 	}
 	
 	public static void addTray() {

@@ -8,8 +8,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ppomodoro.notification.Manager;
 
 public class MainScreen extends Application {
+	private Manager m;
 	
 	@Override
 	public void init() throws Exception {
@@ -19,11 +21,15 @@ public class MainScreen extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
+		m = Manager.getInstance();
 		Scene testScene = this.testFunction();
 		
 		primaryStage.setTitle("Test App");
 		primaryStage.setScene(testScene);
 		primaryStage.show();
+		
+		m.notificate("test");
+		m.notificate("fjgjgj");
 	}
 	
 	@Override

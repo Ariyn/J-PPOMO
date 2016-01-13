@@ -5,9 +5,10 @@
 <?import javafx.scene.text.Font ?>
 <?import javafx.geometry.Pos ?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" prefWidth="240" prefHeight="100" alignment="center" style="-fx-background-color:rgba(0,0,0,0.8); -fx-background-radius:13px;">
+<VBox fx:id="mainVBox" fx:controller="ppomodoro.notification.Controller"
+ xmlns:fx="http://javafx.com/fxml" prefWidth="240" prefHeight="100" alignment="center" style="-fx-background-color:rgba(0,0,0,0.8); -fx-background-radius:13px;">
 	<children>
-		<Label text="sample notification" fx:id="timeLabel" style="-fx-text-fill:white;">
+		<Label text="sample notification" fx:id="messageLabel" style="-fx-text-fill:white;">
 			<font>
 				<Font name="EOSM" size="20" />
 			</font>
