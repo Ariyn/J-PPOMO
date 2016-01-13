@@ -1,4 +1,4 @@
-package ppomodoro;
+package ppomodoro.Datas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,11 +6,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javafx.application.Platform;
-
-
-interface TimerTicListener {
-	void timeTic(int second);
-}
 
 public class ppomoTimer {
 	private static ppomoTimer singleton = new ppomoTimer();
@@ -23,7 +18,7 @@ public class ppomoTimer {
 	private int ppomoCount = 0;
 	private long startTime = 0;
 	
-	private Timer timer = new Timer();
+	private java.util.Timer timer = new Timer();
 	
 	public ppomoTimer() {
 	}

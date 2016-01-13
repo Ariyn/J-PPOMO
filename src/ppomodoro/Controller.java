@@ -2,14 +2,14 @@ package ppomodoro;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.Callable;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+
+import ppomodoro.Datas.*;
 
 public class Controller implements Initializable, TimerTicListener{
 	@FXML private Button btn1;
@@ -31,13 +31,6 @@ public class Controller implements Initializable, TimerTicListener{
 		});
 	}
 	
-	@Override
-	public void timeTic(int second) {
-		System.out.println(second);
-		
-		changeTimer(second/60, second%60);
-	}
-	
 	public void changeTimer(int second) {
 		this.timeLabel.setText(Integer.toString(second));
 	}
@@ -57,6 +50,25 @@ public class Controller implements Initializable, TimerTicListener{
 			btn1.setText("STOP!");
 			System.out.println("start new ppomo");
 		}
+	}
+	
+	@Override
+	public void timeTic(int second) {
+		System.out.println(second);
+		
+		changeTimer(second/60, second%60);
+	}
+
+	@Override
+	public void timerEnd() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void timerStart() {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
