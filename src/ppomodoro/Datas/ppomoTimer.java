@@ -7,8 +7,8 @@ import java.util.TimerTask;
 
 import javafx.application.Platform;
 
-public class ppomoTimer {
-	private static ppomoTimer singleton = new ppomoTimer();
+public class PpomoTimer {
+	private static PpomoTimer singleton = new PpomoTimer();
 	private static List<TimerTicListener> listeners = new ArrayList<TimerTicListener>();
 	
 	public int data = 0;
@@ -20,11 +20,15 @@ public class ppomoTimer {
 	
 	private java.util.Timer timer = new Timer();
 	
-	public ppomoTimer() {
+	public PpomoTimer() {
 	}
 	
 	public void addListener(TimerTicListener newListener) {
 		listeners.add(newListener);
+	}
+	public void removeListener(TimerTicListener oldListener) {
+		boolean check = listeners.remove(oldListener);
+		System.out.println(check);
 	}
 	
 	// stackoverflow.com/questions/16128423/how-to-update-the-label-box-every-2-seconds-in-java-fx
@@ -35,10 +39,18 @@ public class ppomoTimer {
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
-						ppomoTimer.second += 1;
+						PpomoTimer.second += 1;
+						
+						// TODO: change this end time to variable
+						if(6 <= PpomoTimer.second) {
+							for(TimerTicListener t: listeners) {
+								t.timerEnd();
+							}
+							PpomoTimer.getInstance().stopPpomo();
+						}
 						
 						for(TimerTicListener t : listeners) {
-							t.timeTic(ppomoTimer.second);
+							t.timeTic(PpomoTimer.second);
 						}
 					}
 				});
@@ -52,10 +64,15 @@ public class ppomoTimer {
 		timer.cancel();
 	}
 		
-	public static ppomoTimer getInstance() {
-		return ppomoTimer.singleton;
+	public static PpomoTimer getInstance() {
+		return PpomoTimer.singleton;
 	}
 	
+	public int getSecond() {
+		return second;
+	}
+	
+	// TODO: change start and stop ppomo to static functions
 	public void startNewPpomo() {
 		startTime = System.currentTimeMillis();
 		isRunning = true;

@@ -14,12 +14,13 @@ import ppomodoro.Datas.*;
 public class Controller implements Initializable, TimerTicListener{
 	@FXML private Button btn1;
 	@FXML private Label timeLabel;
+	private MainScreen ms;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resource) {
 		System.out.println(location.toString());
 		
-		ppomoTimer.getInstance().addListener(this);
+		PpomoTimer.getInstance().addListener(this);
 		
 		btn1.setText("PPOMO!");
 		
@@ -31,15 +32,23 @@ public class Controller implements Initializable, TimerTicListener{
 		});
 	}
 	
+	public void destroy() {
+		PpomoTimer.getInstance().removeListener(this);
+	}
+	
+	public void setMainScreen(MainScreen ms) {
+		this.ms = ms;
+	}
+	
 	public void changeTimer(int second) {
-		this.timeLabel.setText(Integer.toString(second));
+		this.changeTimer(second/60, second%60);
 	}
 	public void changeTimer(int minute, int second) {
 		this.timeLabel.setText(String.format("%02d", minute) + ":" + String.format("%02d", second));
 	}
 	
 	public void handleBtn1Action(ActionEvent event) {
-		ppomoTimer t = ppomoTimer.getInstance();
+		PpomoTimer t = PpomoTimer.getInstance();
 		
 		if(t.isRunning()) {
 			t.stopPpomo();
@@ -62,7 +71,7 @@ public class Controller implements Initializable, TimerTicListener{
 	@Override
 	public void timerEnd() {
 		// TODO Auto-generated method stub
-		
+		SoundManager.getInstance().soundEnd();
 	}
 
 	@Override
