@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import ppomodoro.Datas.*;
+import ppomodoro.Tray.TrayManager;
 
 public class Controller implements Initializable, TimerTicListener{
 	@FXML private Button btn1;
@@ -21,6 +22,8 @@ public class Controller implements Initializable, TimerTicListener{
 	private String thisPpomoType = "";
 	
 	private MainScreen ms;
+	
+	private TrayManager tm = TrayManager.getInstance();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resource) {
@@ -39,7 +42,7 @@ public class Controller implements Initializable, TimerTicListener{
 	}
 	
 	public void destroy() {
-		PpomoTimer.getInstance().removeListener(this);
+//		PpomoTimer.getInstance().removeListener(this);
 	}
 	
 	public void setMainScreen(MainScreen ms) {
@@ -55,9 +58,10 @@ public class Controller implements Initializable, TimerTicListener{
 	
 	public void handleBtn1Action(ActionEvent event) {
 		PpomoTimer t = PpomoTimer.getInstance();
+		System.out.println(t.isRunning());
 		
 		if(t.isRunning()) {
-			t.stopPpomo();
+			t.stopPpomo(false);
 			btn1.setText("PPOMO!");
 			System.out.println("stop ppomo");
 		} else {
@@ -77,18 +81,19 @@ public class Controller implements Initializable, TimerTicListener{
 //		System.out.println(second / (float)thisPpomoComplete);
 		progressPi.setProgress(second / (float)thisPpomoComplete);
 	}
-
+	
 	@Override
 	public void timerEnd() {
-		// TODO Auto-generated method stub
 		SoundManager.getInstance().soundEnd();
+		btn1.setText("PPOMO!");
 	}
 
 	@Override
-	public void timerStart() {
+	public void timerStart(int completeSecond, String type) {
 		// TODO Auto-generated method stub
+		thisPpomoComplete = completeSecond;
+		thisPpomoType = type;
 		
+		System.out.println(type);
 	}
 }
-
-

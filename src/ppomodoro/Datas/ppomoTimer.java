@@ -10,22 +10,47 @@ import javafx.application.Platform;
 public class PpomoTimer {
 	private static PpomoTimer singleton = new PpomoTimer();
 	private static List<TimerTicListener> listeners = new ArrayList<TimerTicListener>();
-	
-	public int data = 0;
-	
+		
 	private boolean isRunning = false;
-	private static int second = 0;
-	private int ppomoCount = 0;
-	private long startTime = 0;
+	private int second = 0;
 	
-	private java.util.Timer timer = new Timer();
+	private ProgramManager pm = ProgramManager.getInstance();
+	
+//	private TimerTask runTask; 
+	
+	private int completeSecond = 6;
+	private String ppomoType = "";
+	
+	private java.util.Timer timer;
 	
 	public PpomoTimer() {
 	}
 	
-	public void addListener(TimerTicListener newListener) {
-		listeners.add(newListener);
+	public int getCompleteSecond() {
+		return this.completeSecond;
 	}
+	public void setCompleteSecond(int minute) {
+		// TODO: should not change when on timer.
+		if(!isRunning) {
+			this.completeSecond = minute * 60;
+		}
+	}
+	
+	public void addListener(TimerTicListener newListener) {
+		ArrayList<TimerTicListener> tl = new ArrayList<TimerTicListener>();
+		for(TimerTicListener t :listeners) {
+			if(t.getClass() == newListener.getClass()) {
+				tl.add(t);
+			}
+		}
+		
+		listeners.add(newListener);
+		
+		for(TimerTicListener t :tl) {
+			listeners.remove(t);
+		}
+	}
+	
 	public void removeListener(TimerTicListener oldListener) {
 		boolean check = listeners.remove(oldListener);
 		System.out.println(check);
@@ -33,24 +58,34 @@ public class PpomoTimer {
 	
 	// stackoverflow.com/questions/16128423/how-to-update-the-label-box-every-2-seconds-in-java-fx
 	private void startTic() {
+		for(TimerTicListener t : listeners) {
+			t.timerStart(this.completeSecond, this.ppomoType);
+		}
+		
+		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
 				Platform.runLater(new Runnable() {
+					PpomoTimer p = PpomoTimer.getInstance();
+					
 					@Override
-					public void run() {
-						PpomoTimer.second += 1;
-						
-						// TODO: change this end time to variable
-						if(6 <= PpomoTimer.second) {
-							for(TimerTicListener t: listeners) {
-								t.timerEnd();
-							}
-							PpomoTimer.getInstance().stopPpomo();
+					public void run() {		
+						for(TimerTicListener t : listeners) {
+							t.timeTic(this.p.second);
 						}
 						
-						for(TimerTicListener t : listeners) {
-							t.timeTic(PpomoTimer.second);
+						if(this.p.completeSecond <= this.p.second) {
+							System.out.println("Done");
+							System.out.println(listeners.size());
+							
+							for(TimerTicListener t: listeners) {
+								System.out.println(t);
+								t.timerEnd();
+							}
+							this.p.stopPpomo(true);
+						} else {
+							this.p.second += 1;
 						}
 					}
 				});
@@ -59,8 +94,6 @@ public class PpomoTimer {
 	}
 	
 	private void stopTic() {
-		// TODO: check done or failed.
-		this.ppomoCount += 1;
 		timer.cancel();
 	}
 		
@@ -74,15 +107,30 @@ public class PpomoTimer {
 	
 	// TODO: change start and stop ppomo to static functions
 	public void startNewPpomo() {
-		startTime = System.currentTimeMillis();
-		isRunning = true;
-		startTic();
+		if(!isRunning) {
+			int minute = pm.setPpomoStart();
+			this.setCompleteSecond(minute);
+			this.ppomoType = pm.getThisPpomoType();
+			
+			// test ninja code!
+			// 닌자다! 주거라.
+//			this.completeSecond = minute;
+					
+			
+			isRunning = true;
+			startTic();
+		}
 	}
 	
-	public void stopPpomo() {
-		ppomoCount += 1;
-		isRunning = false;
-		stopTic();
+	public void stopPpomo(boolean succeed) {
+		if(isRunning) {
+			isRunning = false;
+			
+			pm.setPpomoEnd(succeed);
+			stopTic();
+			
+			second = 0;
+		}
 	}
 	
 	public boolean isRunning() {
