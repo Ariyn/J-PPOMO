@@ -14,6 +14,12 @@ import ppomodoro.Datas.*;
 public class Controller implements Initializable, TimerTicListener{
 	@FXML private Button btn1;
 	@FXML private Label timeLabel;
+//	@FXML private ProgressBar progressBar;
+	@FXML private ProgressIndicator progressPi;
+	
+	private int thisPpomoComplete = 0;
+	private String thisPpomoType = "";
+	
 	private MainScreen ms;
 	
 	@Override
@@ -66,6 +72,10 @@ public class Controller implements Initializable, TimerTicListener{
 		System.out.println(second);
 		
 		changeTimer(second/60, second%60);
+		tm.setTimerText(String.format("%02d", second/60) + ":" + String.format("%02d", second%60));
+		
+//		System.out.println(second / (float)thisPpomoComplete);
+		progressPi.setProgress(second / (float)thisPpomoComplete);
 	}
 
 	@Override

@@ -3,25 +3,31 @@ package ppomodoro;
 import java.io.IOException;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import ppomodoro.Datas.PpomoTimer;
 import ppomodoro.Datas.ProgramManager;
-import ppomodoro.Datas.SoundManager;
-import ppomodoro.notification.Manager;
+import ppomodoro.notification.NotiManager;
 
 public class MainScreen extends Application {
-	private Manager m;
 	private FXMLLoader fxml;
-	private Parent root;
+	
+	private NotiManager m;
 	private Controller c;
 	private PpomoTimer pt;
 	private ProgramManager pm;
+	
+	private Parent root;
+	
+	private Stage primaryStage;
 	
 	
 	@Override
@@ -32,10 +38,11 @@ public class MainScreen extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		m = Manager.getInstance();
+		m = NotiManager.getInstance();
 		pt = PpomoTimer.getInstance();
 		pm = ProgramManager.getInstance();
 		
+		this.primaryStage = primaryStage;
 		Scene testScene = this.testFunction();
 		
 		int second = pt.getSecond();
@@ -78,6 +85,20 @@ public class MainScreen extends Application {
 		c = (Controller)fxml.getController();
 		c.setMainScreen(this);
 		Scene newScene = new Scene(root);
+		
+		//dzone.com/articles/handling-keyboard-sortcuts
+		//stackoverflow.com/questions/14357515/javafx-close-window-on-pressing-esc
+		newScene.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
+			KeyCombination keyCombi = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
+						
+			@Override
+			public void handle(KeyEvent event) {
+				if(keyCombi.match(event)) {
+					System.out.println("same!");
+					primaryStage.close();
+				}
+			}			
+		});
 		
 		return newScene;
 	}

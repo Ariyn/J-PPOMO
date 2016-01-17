@@ -7,11 +7,12 @@ import javafx.stage.Stage;
 // Notification Manager is singleton
 // this takes care notification init, destroy, control number of notification
 
-public class Manager {
-	private static Manager singleton = new Manager();
+//TODO: remove notification a little after
+public class NotiManager {
+	private static NotiManager singleton = new NotiManager();
 	private ArrayList<Notification> notiList = new ArrayList<Notification>(); 
 	
-	public static Manager getInstance() {
+	public static NotiManager getInstance() {
 		return singleton;
 	}
 	
