@@ -45,8 +45,6 @@ public class Notification extends Application {
 		
 		//stackoverflow.com/questions/3680221/how-can-i-get-the-monitor-size-in-java
 		// figure out width of main monitor
-		int width = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();
-
 		Scene newScene = new Scene(root);
 		newScene.setFill(null);
 		
@@ -56,7 +54,7 @@ public class Notification extends Application {
 		
 		// TODO: change this to scale-able
 		// small, medium, large
-		primaryStage.setX(width-240);
+//		primaryStage.setX(width-240);
 		
 		primaryStage.show();
 	}
