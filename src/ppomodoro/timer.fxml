@@ -4,15 +4,16 @@
 <?import javafx.scene.control.* ?>
 <?import javafx.scene.text.Font ?>
 <?import javafx.geometry.Pos ?>
+<?import javafx.scene.canvas.* ?>
 
 <VBox xmlns:fx="http://javafx.com/fxml" prefWidth="480" prefHeight="800" alignment="center" fx:controller="ppomodoro.Controller">
 	<children>
-		<HBox alignment="center">
+		<Canvas fx:id="svgView" height="400" width="400"/>
+<!-- 		<HBox alignment="center">
 			<children>
-				<!-- <ProgressBar fx:id="progressBar" /> -->
 				<ProgressIndicator fx:id="progressPi" prefWidth="70" prefHeight="70" progress="0.0f"/>
 			</children>
-		</HBox>
+		</HBox> -->
 		
 		<Label text="00:00" fx:id="timeLabel">
 			<font>

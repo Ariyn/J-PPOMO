@@ -90,7 +90,7 @@ public class PpomoTimer {
 					}
 				});
 			}
-		}, 0, 1000);
+		}, 0, 50);
 	}
 	
 	private void stopTic() {
