@@ -1,6 +1,8 @@
 package ppomodoro;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -48,7 +50,7 @@ public class MainScreen extends Application {
 		int second = pt.getSecond();
 		c.changeTimer(second);
 		
-		primaryStage.setTitle("Test App");
+		primaryStage.setTitle("PPOMODORO TIMER");
 		primaryStage.setScene(testScene);
 		primaryStage.show();
 		
@@ -75,11 +77,13 @@ public class MainScreen extends Application {
 	
 	private Scene testFunction() {
 		fxml = new FXMLLoader(getClass().getResource("timer.fxml"));
+		System.out.println(fxml);
 		try {
 			root = fxml.load();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, e);
 		}
 		
 		c = (Controller)fxml.getController();

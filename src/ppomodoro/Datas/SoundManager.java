@@ -1,15 +1,18 @@
 package ppomodoro.Datas;
 
+import java.net.MalformedURLException;
 import java.net.URL;
+
+import java.util.ArrayList;
 
 import javafx.scene.media.AudioClip;
 
 public class SoundManager {
 	private static SoundManager singleton = new SoundManager();
-	private URL testResource;
+	private ArrayList<Sound> resource = new ArrayList<Sound>();
+	private ArrayList<String> resourceName = new ArrayList<String>();
 	
 	// TODO: change clip to dictionaries
-	private AudioClip clip;
 	
 	public static SoundManager getInstance() {
 		return singleton;
@@ -17,12 +20,38 @@ public class SoundManager {
 	
 	public SoundManager() {
 		System.out.println();
-		testResource = getClass().getResource("/ppomodoro/Resources/success.wav");
-		clip = new AudioClip(testResource.toString());
-		System.out.println("testReource " + testResource);
+		
+		addNewSound("success", "/ppomodoro/Resources/success.wav");
+		addNewSound("ding", "/ppomodoro/Resources/ding.wav");
 	}
 	
-	public void soundEnd() {
-		clip.play(1.0);
+	public void addNewSound(String name, String path) {
+		
+		resource.add(new Sound(name, getClass().getResource(path)));
+		resourceName.add(name);
+	}
+	
+	public void playSound(String name) {
+		int index = resourceName.indexOf(name);
+		Sound s = resource.get(index);
+		s.play();
+	}
+}
+
+class Sound {
+	private AudioClip clip;
+	private String name;
+	private URL url;
+	
+	
+	public Sound(String name, URL url) {
+		this.name = name;
+		this.url = url;
+		
+		this.clip = new AudioClip(this.url.toString());
+	}
+	
+	public void play() {
+		this.clip.play();
 	}
 }

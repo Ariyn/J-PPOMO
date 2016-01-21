@@ -1,10 +1,14 @@
 package ppomodoro.Tray;
 
 import java.awt.AWTException;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
+import java.awt.Rectangle;
 import java.awt.SystemTray;
+import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -61,6 +65,8 @@ public class TrayManager {
 		
 		SystemTray st = SystemTray.getSystemTray();
 		Image image = null;
+		
+		//stackoverflow.com/questions/10123735/get-effective-screen-size-from-java
 		
 		try {
 			//TODO: not allowed to use. need to remove on release version.
