@@ -1,5 +1,9 @@
 package ppomodoro.Datas;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,6 +61,24 @@ public class ProgramManager {
 		}
 		
 		return error;
+	}
+	
+	private void saveConfig() {
+		
+	}
+	
+	//this save ppomo progress or such things
+	private void savePpomoLog() {
+		FileOutputStream saveData;
+		try {
+			saveData = new FileOutputStream("Datas/testData.json");
+			saveData.write("test Data".getBytes());
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 	}
 	
 	
