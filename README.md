@@ -30,3 +30,22 @@ Todo
  
     * 일시정지후 다시 시작할시 죽음
     * 윈도우의 x버튼으로 나갈시 java 프로세스가 죽지 않고 살아있음.
+    
+    
+    
+====
+저작권 알림
+
+
+
+freesound.org cc3(free to use for private or commercially)
+
+	notification ding	https://freesound.org/people/Aiwha/sounds/196106/
+	success 			http://www.freesound.org/people/fins/sounds/171671/
+	
+icon 
+	
+i have no right to use this. only for test.
+
+	tray 				http://a4.mzstatic.com/us/r30/Purple1/v4/8a/3a/1f/8a3a1f6c-ebc6-4bbd-bc61-bf27aed94494/icon128-2x.png
+	dock icon			http://a4.mzstatic.com/us/r30/Purple1/v4/8a/3a/1f/8a3a1f6c-ebc6-4bbd-bc61-bf27aed94494/icon128-2x.png
