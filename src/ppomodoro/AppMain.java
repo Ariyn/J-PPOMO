@@ -6,6 +6,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 import javafx.application.Platform;
+import ppomodoro.Datas.ProgramManager;
 import ppomodoro.Tray.TrayManager;
 
 public class AppMain {
@@ -25,6 +26,7 @@ public class AppMain {
 		    // Won't work on Windows or Linux.
 		}
 		
+		ProgramManager.getInstance();
 		
 		Platform.setImplicitExit( false );
 		TrayManager.getInstance().addTray();
