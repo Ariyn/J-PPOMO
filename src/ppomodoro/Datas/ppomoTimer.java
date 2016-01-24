@@ -45,7 +45,7 @@ public class PpomoTimer {
 		}
 		
 		listeners.add(newListener);
-		
+		newListener.timerStart(completeSecond, ppomoType, second);
 		for(TimerTicListener t :tl) {
 			listeners.remove(t);
 		}
@@ -59,7 +59,7 @@ public class PpomoTimer {
 	// stackoverflow.com/questions/16128423/how-to-update-the-label-box-every-2-seconds-in-java-fx
 	private void startTic() {
 		for(TimerTicListener t : listeners) {
-			t.timerStart(this.completeSecond, this.ppomoType);
+			t.timerStart(this.completeSecond, this.ppomoType, this.second);
 		}
 		
 		timer = new Timer();
@@ -90,7 +90,7 @@ public class PpomoTimer {
 					}
 				});
 			}
-		}, 0, 50);
+		}, 0, 1000);
 	}
 	
 	private void stopTic() {
@@ -113,7 +113,6 @@ public class PpomoTimer {
 			this.ppomoType = pm.getThisPpomoType();
 			
 			// test ninja code!
-			// 닌자다! 주거라.
 //			this.completeSecond = minute;
 					
 			

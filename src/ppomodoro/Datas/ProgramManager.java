@@ -27,12 +27,13 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
+import ppomodoro.MainScreen;
 
 public class ProgramManager {
 	private static ProgramManager singleton = new ProgramManager();
-	
-	
-	private ArrayList<WindowListener> windowListenerList = new ArrayList<WindowListener>();
+
 	// count between longBreaks
 	private int ppomoCount = 0;
 	private int breakCount = 0;
@@ -44,6 +45,10 @@ public class ProgramManager {
 	private Map<String, Class> configTypes = new HashMap<String, Class>();
 	private Map<String, Object> config = new HashMap<String, Object>();
 	
+	private ArrayList<WindowListener> windowListenerList = new ArrayList<WindowListener>();
+	private ArrayList<String> opendWindowList = new ArrayList<String>();
+	private Map<String, Class<? extends Application>> windowList = new HashMap<String, Class<? extends Application>>();
+	
 	private UserData ud;
 	private Document xmlDocument;
 	
@@ -52,6 +57,7 @@ public class ProgramManager {
 		XMLParserCheck();
 		ud = new UserData(xmlDocument);
 		
+		windowList.put("MainScreen", MainScreen.class);
 		
 		System.out.println(ud.name);
 		System.out.println(ud.email);
@@ -207,14 +213,35 @@ public class ProgramManager {
 		return singleton;
 	}
 	
-	public void openWindow(WindowListener window) {
+	public void addListener(WindowListener window) {
 		windowListenerList.add(window);
+		opendWindowList.add(window.getName());
+	}
+	
+	public void openWindow(String windowName) {
+		Class<? extends Application> newClass = this.windowList.get(windowName);
+		System.out.println("here");
+		
+		Platform.runLater(()-> {
+			System.out.println("running later");
+			try {
+				System.out.println(String.format("%s, %d", windowName, opendWindowList.indexOf(windowName)));
+				
+				if(opendWindowList.indexOf(windowName) == -1) {
+					System.out.println("inside here");
+					newClass.newInstance().start(new Stage());
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
 	}
 	
 
 	public void closeWindow(WindowListener window) {
 		window.closeWindow();
 		windowListenerList.remove(window);
+		opendWindowList.remove(window.getName());
 	}
 
 	// TODO: save ppomodoro datas to file

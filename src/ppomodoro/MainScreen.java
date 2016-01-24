@@ -52,10 +52,11 @@ public class MainScreen extends Application {
 		
 		primaryStage.setTitle("PPOMODORO TIMER");
 		primaryStage.setScene(testScene);
-		primaryStage.show();
 		
+		primaryStage.show();
 		primaryStage.requestFocus();
-				
+		
+		System.out.println("start new window!");
 		//java2s.com/Code/Java/JavaFX/Stagecloseevent.htm
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {
@@ -69,9 +70,14 @@ public class MainScreen extends Application {
 		});
 	}
 	
+	public Stage getPrimaryStage() {
+		return this.primaryStage;
+	}
+	
 	@Override
 	public void stop() throws Exception {
 		System.out.println(Thread.currentThread().getName()+": stop 호출");
+		pm.closeWindow(c);
 		c.destroy();
 	}
 	
@@ -99,7 +105,13 @@ public class MainScreen extends Application {
 			public void handle(KeyEvent event) {
 				if(keyCombi.match(event)) {
 					System.out.println("same!");
-					primaryStage.close();
+					try {
+						stop();
+						primaryStage.close();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}			
 		});

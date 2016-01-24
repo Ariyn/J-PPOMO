@@ -30,6 +30,7 @@ public class TrayManager {
 	private MenuItem exitItem;
 	
 	private TrayIcon ti = null;
+	private ProgramManager pm = ProgramManager.getInstance();
 	
 	private ActionListener showListener = new ActionListener() {
 		
@@ -39,18 +40,9 @@ public class TrayManager {
 			String cmd = e.getActionCommand();
 			
 			if(cmd == "show") {
-				Platform.runLater(()-> {
-					System.out.println("hger");
-					try {
-						new MainScreen().start(new Stage());
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
-				});
+				pm.openWindow("MainScreen");
 			} else if(cmd == "exit") {
-				System.out.println("exit");
-				ProgramManager pm = ProgramManager.getInstance();
-				
+				System.out.println("exit");				
 				pm.closeProgram();
 				Platform.exit();
 				System.exit(0);

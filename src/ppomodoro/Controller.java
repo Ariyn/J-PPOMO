@@ -15,11 +15,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 import ppomodoro.Datas.*;
 import ppomodoro.Tray.TrayManager;
 import ppomodoro.notification.NotiManager;
 
-public class Controller implements Initializable, TimerTicListener{
+public class Controller implements Initializable, TimerTicListener, WindowListener{
 	@FXML private Button btn1;
 	@FXML private Label timeLabel;
 //	@FXML private ProgressIndicator progressPi;
@@ -41,9 +42,10 @@ public class Controller implements Initializable, TimerTicListener{
 	public void initialize(URL location, ResourceBundle resource) {
 		System.out.println(location.toString());
 		
-		PpomoTimer.getInstance().addListener(this);
-		
 		gc = svgView.getGraphicsContext2D();
+		
+		PpomoTimer.getInstance().addListener(this);
+		ProgramManager.getInstance().addListener(this);
 		
 		btn1.setText("PPOMO!");
 		
@@ -111,9 +113,13 @@ public class Controller implements Initializable, TimerTicListener{
 		if(thisPpomoType == "ppomo") {
 			minutes = (second/60)*14.4;
 			seconds = (second%60)*6;
-		} else {
+//			System.out.println(String.format("%f, %f", minutes, seconds));
+		} else if(thisPpomoType == "break") {
 			minutes = (second/60)*72;
 			seconds = (second%60)*6;
+		} else {
+			minutes = 0;
+			seconds = 0;
 		}
 		
 		drawCoin();
@@ -128,8 +134,10 @@ public class Controller implements Initializable, TimerTicListener{
 	private void drawCoin() {
 		if(thisPpomoType == "ppomo")
 			gc.setFill(Color.DEEPPINK);
-		else
+		else if(thisPpomoType == "break")
 			gc.setFill(Color.DEEPSKYBLUE);
+		else
+			gc.setFill(Color.TRANSPARENT);
 		
 		gc.fillArc(175, 175, 50, 50, 0, 360, ArcType.CHORD);
 		
@@ -158,15 +166,29 @@ public class Controller implements Initializable, TimerTicListener{
 		else 
 			message = "휴식시간이";
 	
-		NotiManager.getInstance().notificate(message + " 끝났어요.");
+		NotiManager.getInstance().notificate(message + " 끝났어요!");
 	}
 
 	@Override
-	public void timerStart(int completeSecond, String type) {
+	public void timerStart(int completeSecond, String type, int now) {
 		// TODO Auto-generated method stub
 		thisPpomoComplete = completeSecond;
 		thisPpomoType = type;
 		
-		System.out.println(type);
+//		timeTic(now);
+		
+//		System.out.println("type "+type);
+	}
+
+	@Override
+	public void closeWindow() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "MainScreen";
 	}
 }
