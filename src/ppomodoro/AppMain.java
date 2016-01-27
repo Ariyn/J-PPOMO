@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 
 import javafx.application.Platform;
 import ppomodoro.Datas.ProgramManager;
+import ppomodoro.Datas.XmlManager.XmlManager;
 import ppomodoro.Tray.TrayManager;
 
 public class AppMain {
@@ -25,6 +26,8 @@ public class AppMain {
 		} catch (Exception e) {
 		    // Won't work on Windows or Linux.
 		}
+		 
+		XmlManager x = new XmlManager();
 		
 		ProgramManager.getInstance();
 		

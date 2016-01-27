@@ -43,7 +43,6 @@ public class TrayManager {
 				pm.openWindow("MainScreen");
 			} else if(cmd == "exit") {
 				System.out.println("exit");				
-				pm.closeProgram();
 				Platform.exit();
 				System.exit(0);
 

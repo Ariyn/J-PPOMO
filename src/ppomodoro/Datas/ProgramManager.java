@@ -1,44 +1,38 @@
 package ppomodoro.Datas;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import ppomodoro.MainScreen;
 
+import ppomodoro.MainScreen;
+import ppomodoro.Datas.Exceptions.NoXmlFileException;
+import ppomodoro.Datas.XmlManager.SaveDataManager;
+import ppomodoro.Datas.XmlManager.XmlManager;
+
+
+//TODO: save every ppomodoro start and end and middle of ppomodoro
 public class ProgramManager {
 	private static ProgramManager singleton = new ProgramManager();
 
+	private SaveDataManager sdm = null;
+	
 	// count between longBreaks
 	private int ppomoCount = 0;
 	private int breakCount = 0;
 	private int failedCount = 0;
 	
-	private ArrayList<PpomoTimeData> ppomoHistory = new ArrayList<PpomoTimeData>();
+	// TODO really?? here?? not in ppomoTimer???
+	private ArrayList<PpomoTimeData> ppomoHistory = null;
 	
 	private ArrayList<WindowListener> windowListenerList = new ArrayList<WindowListener>();
 	private ArrayList<String> opendWindowList = new ArrayList<String>();
 	private Map<String, Class<? extends Application>> windowList = new HashMap<String, Class<? extends Application>>();
 	
-	private UserData ud;
-	
-	
-	//change this variables
+	//TODO change this variables
 	@SuppressWarnings("rawtypes")
 	private Map<String, Class> configTypes = new HashMap<String, Class>();
 	private Map<String, Object> config = new HashMap<String, Object>();
@@ -47,13 +41,34 @@ public class ProgramManager {
 	public ProgramManager() {
 //		ud = new UserData(xmlDocument);
 		
+		// TODO change this as xml
 		windowList.put("MainScreen", MainScreen.class);
 		
-//		savePpomoLog();
-//		ppomoLogLoad();
-//		
-//		testConfigSet();
-//		loadConfig();
+		addmitExitListener();
+		
+		sdm = SaveDataManager.getInstance();
+		try {
+			int d = sdm.XMLParserCheck();
+			
+			if(d == XmlManager.createNewFile) {
+				sdm.isNewFile = true;
+			}
+		} catch (NoXmlFileException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ppomoHistory = sdm.loadPpomoLog();
+//		System.out.println("work here");
+		
+		testConfigSet();
+		loadConfig();
+	}
+	
+	private void addmitExitListener() {
+		Runtime.getRuntime().addShutdownHook(new Thread( () -> {
+			System.out.println("done!");
+			closeProgram();
+		}));
 	}
 	
 	public static ProgramManager getInstance() {
@@ -67,7 +82,6 @@ public class ProgramManager {
 	
 	public void openWindow(String windowName) {
 		Class<? extends Application> newClass = this.windowList.get(windowName);
-		System.out.println("here");
 		
 		Platform.runLater(()-> {
 			System.out.println("running later");
@@ -93,12 +107,45 @@ public class ProgramManager {
 
 	// TODO: save ppomodoro datas to file
 	public void closeProgram() {
-//		savePpomoLog();
+		sdm.savePpomoLog(ppomoHistory);
 	}
 	
+	
+	// TODO: what is this function for??
 	public void controlPpomodoroSchedule() {
 		
 	}
+	
+	private void testConfigSet() {
+	// TODO: don't remove this function and check validation of config file
+	// which equals config and configTypes
+	
+	configTypes.put("ppomo time", Integer.class);
+	configTypes.put("break time", Integer.class);
+	configTypes.put("long break time", Integer.class);
+	
+	configTypes.put("long break term", Integer.class);
+	
+	config.put("ppomo time", 25);
+	config.put("break time", 5);
+	config.put("long break time", 30);
+	
+	config.put("long break term", 4);
+}
+
+// TODO: need to load from xml file
+private boolean loadConfig() {
+	boolean error = false;
+	
+	for(String key:config.keySet()) {
+		if(config.get(key).getClass() != configTypes.get(key)) {
+			error = true;
+		}
+		
+	}
+	
+	return error;
+}
 	
 	public int setPpomoStart() {
 		String type = checkPpomoType();
@@ -162,55 +209,5 @@ public class ProgramManager {
 			retVal = "error";
 		}
 		return retVal;
-	}
-	
-	// TODO: calculate ppomo type by ppomodoro history
-	// TODO: does this really necessary?
-	@SuppressWarnings("unused")
-	public String calculatePpomoType() {
-		String retVal = "test";
-		int ppomoTerm = (int) config.get("long break term");
-		int ppomoTimes = 0;
-		
-		for(PpomoTimeData i:ppomoHistory) {
-			
-		}
-		
-		return retVal;
-	}
-	
-	// TODO: save every ppomodoro start and end and middle of ppomodoro
-}
-
-class UserData {
-	private Document xmlDocument = null;
-	public String name = null, email = null, userId = null;
-	
-	public UserData(Document xmlDocument) {
-		this.xmlDocument = xmlDocument;
-		
-		getUserInfo();
-	}
-	
-	private void getUserInfo() {
-		NodeList userNodeList = xmlDocument.getElementsByTagName("user");
-		if(1 <= userNodeList.getLength()) {
-			Element ppomo = (Element)userNodeList.item(0);
-			
-			NodeList userName = ppomo.getElementsByTagName("name");
-			if(1 <= userName.getLength()) {
-				name = userName.item(0).getTextContent();
-			}
-			
-			NodeList emailList = ppomo.getElementsByTagName("email"); 
-			if(1 <= emailList.getLength()) {
-				email = emailList.item(0).getTextContent();
-			}
-			
-			NodeList userIdList = ppomo.getElementsByTagName("userId");
-			if(1 <= userIdList.getLength()) {
-				userId = userIdList.item(0).getTextContent();
-			}
-		}
 	}
 }

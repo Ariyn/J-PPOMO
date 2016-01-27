@@ -11,8 +11,8 @@ import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import ppomodoro.Datas.PpomoTimeData;
-import ppomodoro.Datas.XmlManager;
 import ppomodoro.Datas.Exceptions.NoXmlFileException;
+import ppomodoro.Datas.XmlManager.XmlManager;
 
 public class XmlManagerTester {
 	private XmlManager xm;
@@ -67,30 +67,7 @@ public class XmlManagerTester {
 		System.out.println(success);
 		assertTrue(success == XmlManager.succeedLoadFile || success == XmlManager.createNewFile);
 	}
-	
-	@Test
-	public void testPpomoLogSave() {
-		ArrayList<PpomoTimeData> ph = new ArrayList<PpomoTimeData>();
-		PpomoTimeData ptd = new PpomoTimeData("test"); 
-		ptd.setTime(ptd.start, 123456789);
-		ptd.setTime(ptd.end, 123456789);
-		
-		ptd.setResult(true);
-		
-		ph.add(ptd);
-		
-		
-		try {
-			success = this.xm.XMLParserCheck();
-		} catch (NoXmlFileException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-		}
-		
-		if(success == XmlManager.succeedLoadFile) {
-			this.xm.savePpomoLog(ph);
-		}
-	}
+
 	
 	@Test
 	public void testPpomoCreateNewFile() {
@@ -104,21 +81,6 @@ public class XmlManagerTester {
 		}
 		
 		assertTrue(success == XmlManager.createNewFile);
-	}
-
-	
-	@Test
-	public void testPpomoLogLoad() {
-		try {
-			success = this.xm.XMLParserCheck();
-		} catch (NoXmlFileException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-		}
-		
-		if(success == XmlManager.succeedLoadFile) {
-			ArrayList<PpomoTimeData> pl = this.xm.loadPpomoLog();
-		}
 	}
 
 }
