@@ -24,6 +24,7 @@ public class PpomoTimer {
 	private java.util.Timer timer;
 	
 	public PpomoTimer() {
+		
 	}
 	
 	public int getCompleteSecond() {

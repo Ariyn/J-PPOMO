@@ -14,7 +14,7 @@ import ppomodoro.Datas.SoundManager;
 //TODO: remove notification a little after
 //TODO: doesn't reset index number when user close the noti window;
 public class NotiManager {
-	private static NotiManager singleton = new NotiManager();
+	private static NotiManager singleton = null;
 	private ArrayList<Notification> notiList = new ArrayList<Notification>();
 	
 	private Notification[] notiPositionList = {null, null, null, null, null};
@@ -29,6 +29,9 @@ public class NotiManager {
 	}
 	
 	public static NotiManager getInstance() {
+		if(singleton == null)
+			singleton = new NotiManager();
+		
 		return singleton;
 	}
 	

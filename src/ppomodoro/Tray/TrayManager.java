@@ -42,10 +42,9 @@ public class TrayManager {
 			if(cmd == "show") {
 				pm.openWindow("MainScreen");
 			} else if(cmd == "exit") {
-				System.out.println("exit");				
+				System.out.println("exit");		
 				Platform.exit();
 				System.exit(0);
-
 			}
 			//ti.displaymessage
 		}
@@ -61,7 +60,7 @@ public class TrayManager {
 		
 		try {
 			//TODO: not allowed to use. need to remove on release version.
-            URL url = new URL("http://a4.mzstatic.com/us/r30/Purple1/v4/8a/3a/1f/8a3a1f6c-ebc6-4bbd-bc61-bf27aed94494/icon128-2x.png");
+            URL url = getClass().getResource("/ppomodoro/Resources/icon128-2x.png");
             image = ImageIO.read(url);
         } catch (IOException ex) {
             System.out.println(ex);
