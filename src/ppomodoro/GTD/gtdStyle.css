@@ -1,0 +1,25 @@
+#searchField {
+	-fx-border-radius:15px;
+	-fx-background-radius:15px;
+}
+
+#listView {
+	-fx-border-width:1px;
+	-fx-border-color: rgb(0,0,0);
+}
+.list-cell:empty {
+    -fx-opacity: 0;
+}
+.list-cell:filled {
+	-fx-border-color: rgb(0,0,0);
+	-fx-border-radius:0px;
+	-fx-border-width:0 0 1px 0;
+}
+
+/*#layoutBox {
+	-fx-border-color: rgb(0,0,0);
+	-fx-border-radius:0px;
+}*/
+#taskName {
+	-fx-font-size: 20pt;
+}

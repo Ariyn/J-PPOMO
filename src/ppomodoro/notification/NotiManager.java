@@ -76,7 +76,7 @@ public class NotiManager {
 		}
 		
 		try {
-			com.apple.eawt.Application.getApplication().requestUserAttention(true);
+//			com.apple.eawt.Application.getApplication().requestUserAttention(true);
 		} catch (Exception e) {
 			
 		}
@@ -85,6 +85,6 @@ public class NotiManager {
 	}
 	
 	public void setBadge(String arg) {
-		com.apple.eawt.Application.getApplication().setDockIconBadge(arg);
+//		com.apple.eawt.Application.getApplication().setDockIconBadge(arg);
 	}
 }

@@ -1,0 +1,10 @@
+<?import javafx.scene.layout.* ?>
+<?import javafx.scene.control.* ?>
+<?import javafx.geometry.Pos ?>
+<?import javafx.scene.canvas.* ?>
+
+<Pane xmlns:fx="http://javafx.com/fxml" fx:id="layoutBox" prefHeight="50">
+	<children>
+	    <Label  fx:id="taskName"/>
+	</children>
+</Pane>

@@ -3,14 +3,10 @@ package ppomodoro.Tester;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.xml.sax.SAXException;
 
-import ppomodoro.Datas.PpomoTimeData;
 import ppomodoro.Datas.Exceptions.NoXmlFileException;
 import ppomodoro.Datas.XmlManager.XmlManager;
 

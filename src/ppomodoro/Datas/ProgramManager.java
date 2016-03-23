@@ -60,6 +60,7 @@ public class ProgramManager {
 		ppomoHistory = sdm.loadPpomoLog();
 //		System.out.println("work here");
 		
+		
 		testConfigSet();
 		loadConfig();
 	}
@@ -141,7 +142,6 @@ private boolean loadConfig() {
 		if(config.get(key).getClass() != configTypes.get(key)) {
 			error = true;
 		}
-		
 	}
 	
 	return error;

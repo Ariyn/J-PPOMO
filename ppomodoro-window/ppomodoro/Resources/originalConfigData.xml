@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <root>
-	<config name="ppomo time" value="1"/>
+	<config name="ppomo time" value="25"/>
 	<config name="break time" value="5"/>
 	<config name="long break time" value="30"/>
 	

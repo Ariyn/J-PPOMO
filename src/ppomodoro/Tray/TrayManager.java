@@ -1,14 +1,9 @@
 package ppomodoro.Tray;
 
 import java.awt.AWTException;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
-import java.awt.Insets;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
-import java.awt.Rectangle;
 import java.awt.SystemTray;
-import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,8 +13,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 import javafx.application.Platform;
-import javafx.stage.Stage;
-import ppomodoro.MainScreen;
+import ppomodoro.AppMain;
 import ppomodoro.Datas.ProgramManager;
 
 public class TrayManager {
@@ -40,6 +34,7 @@ public class TrayManager {
 			String cmd = e.getActionCommand();
 			
 			if(cmd == "show") {
+				System.out.println("works here");
 				pm.openWindow("MainScreen");
 			} else if(cmd == "exit") {
 				System.out.println("exit");		
@@ -54,17 +49,7 @@ public class TrayManager {
 		//stackoverflow.com/questions/14626550/to-hide-javafx-fxml-or-javafx-swing-application-to-system-tray
 		
 		SystemTray st = SystemTray.getSystemTray();
-		Image image = null;
-		
 		//stackoverflow.com/questions/10123735/get-effective-screen-size-from-java
-		
-		try {
-			//TODO: not allowed to use. need to remove on release version.
-            URL url = getClass().getResource("/ppomodoro/Resources/icon128-2x.png");
-            image = ImageIO.read(url);
-        } catch (IOException ex) {
-            System.out.println(ex);
-        }
 		
 		PopupMenu pm = new PopupMenu();
 		
@@ -81,13 +66,20 @@ public class TrayManager {
 		
 		pm.add(timerItem);
 		
-		ti = new TrayIcon(image, "Test", pm);
-		
 		try {
-			st.add(ti);
-		} catch(AWTException e) {
-			System.err.println("can't add tray");
-		}
+			//TODO: not allowed to use. need to remove on release version.
+            URL url = getClass().getResource(AppMain.iconURL);
+            System.out.println(url);
+            System.out.println(getClass());
+
+            ti = new TrayIcon(ImageIO.read(url), "Test", pm);
+            ti.setImageAutoSize(true);
+            
+            st.add(ti);
+			System.out.println(ti);
+        } catch (IOException | AWTException ex) {
+            System.out.println(ex);
+        }
 	}
 	
 	public static TrayManager getInstance() {

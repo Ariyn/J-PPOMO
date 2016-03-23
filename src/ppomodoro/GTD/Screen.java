@@ -1,4 +1,4 @@
-package ppomodoro;
+package ppomodoro.GTD;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,13 +15,14 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import javafx.stage.StageStyle;
 import ppomodoro.Datas.PpomoTimer;
 import ppomodoro.Datas.ProgramManager;
 import ppomodoro.notification.NotiManager;
 
-public class MainScreen extends Application {
-	private FXMLLoader fxml;
+public class Screen extends Application{
+	Stage primaryStage;
+	FXMLLoader fxml;
 	
 	private NotiManager m;
 	private Controller c;
@@ -30,63 +31,34 @@ public class MainScreen extends Application {
 	
 	private Parent root;
 	
-	private Stage primaryStage;
-	
-	
 	@Override
 	public void init() throws Exception {
-		System.out.println(Thread.currentThread().getName()+": init �샇異�");
+		System.out.println(Thread.currentThread().getName()+": init GTD screen");
 	}
 	
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-		m = NotiManager.getInstance();
-		pt = PpomoTimer.getInstance();
-		pm = ProgramManager.getInstance();
-		
-		this.primaryStage = primaryStage;
+	public void start(Stage arg0) throws Exception {
+		this.primaryStage = arg0;
 		Scene testScene = this.testFunction();
 		
-		int second = pt.getSecond();
-		c.changeTimer(second);
+//		primaryStage.initStyle(StageStyle.UNDECORATED);
 		
-		URL url = getClass().getResource(AppMain.iconURL);
-		primaryStage.getIcons().add(new javafx.scene.image.Image(url.toString()));
 		primaryStage.setTitle("PPOMODORO TIMER");
 		primaryStage.setScene(testScene);
+		this.primaryStage.show();
+
+//		m = NotiManager.getInstance();
+//		pt = PpomoTimer.getInstance();
+//		pm = ProgramManager.getInstance();
+//		
+//		this.primaryStage = primaryStage;
+//		Scene testScene = this.testFunction();
 		
-		primaryStage.show();
-		primaryStage.requestFocus();
-		
-		System.out.println("start new window!");
-		//java2s.com/Code/Java/JavaFX/Stagecloseevent.htm
-		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			public void handle(WindowEvent we) {
-				try {
-					stop();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	public Stage getPrimaryStage() {
-		return this.primaryStage;
-	}
-	
-	@Override
-	public void stop() throws Exception {
-		System.out.println(Thread.currentThread().getName()+": stop �샇異�");
-		pm.closeWindow(c);
-		c.destroy();
 	}
 	
 	private Scene testFunction() {
-		fxml = new FXMLLoader(getClass().getResource("timer.fxml"));
-		System.out.println(fxml);
+		fxml = new FXMLLoader(getClass().getResource("gtdList.fxml"));
+		
 		try {
 			root = fxml.load();
 		} catch (IOException e) {
@@ -121,4 +93,4 @@ public class MainScreen extends Application {
 		
 		return newScene;
 	}
-}
+}	

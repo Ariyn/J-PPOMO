@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.* ?>
+<?import javafx.scene.control.* ?>
+<?import javafx.scene.text.Font ?>
+<?import javafx.geometry.Pos ?>
+<?import javafx.scene.canvas.* ?>
+  
+<VBox xmlns:fx="http://javafx.com/fxml" prefWidth="480" prefHeight="800" fx:controller="ppomodoro.GTD.Controller" stylesheets="@gtdStyle.css">
+	<children>
+		<HBox prefWidth="480" prefHeight="60" fx:id="headerBox" alignment="CENTER_LEFT" spacing="10">
+			<Pane prefWidth="0"></Pane>
+			<TextField fx:id="searchField" prefWidth="120">
+			</TextField>
+			<Pane prefWidth="290"></Pane>
+			<Button fx:id="addTask">
+			+
+			</Button>
+		</HBox>
+		<ListView id="listView" fx:id="listView" prefHeight="740">
+		</ListView>
+	</children>
+</VBox>

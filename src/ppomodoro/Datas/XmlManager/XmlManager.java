@@ -5,21 +5,14 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.*;
 
 import org.xml.sax.SAXException;
 
-import ppomodoro.Datas.PpomoTimeData;
 import ppomodoro.Datas.Exceptions.NoXmlFileException;
 
 public class XmlManager {

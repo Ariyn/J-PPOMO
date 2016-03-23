@@ -3,7 +3,6 @@ package ppomodoro;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,11 +10,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 import ppomodoro.Datas.*;
 import ppomodoro.Tray.TrayManager;
 import ppomodoro.notification.NotiManager;
@@ -162,11 +159,11 @@ public class Controller implements Initializable, TimerTicListener, WindowListen
 		
 		String message;
 		if(thisPpomoType == "ppomo")
-			message = "뽀모도로가";
+			message = "戮�紐⑤룄濡쒓�";
 		else 
-			message = "휴식시간이";
+			message = "�쑕�떇�떆媛꾩씠";
 	
-		NotiManager.getInstance().notificate(message + " 끝났어요!");
+		NotiManager.getInstance().notificate(message + " �걹�궗�뼱�슂!");
 	}
 
 	@Override
