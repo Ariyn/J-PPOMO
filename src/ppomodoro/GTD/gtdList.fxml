@@ -13,7 +13,7 @@
 			<TextField fx:id="searchField" prefWidth="120">
 			</TextField>
 			<Pane prefWidth="290"></Pane>
-			<Button fx:id="addTask">
+			<Button fx:id="addTaskButton">
 			+
 			</Button>
 		</HBox>

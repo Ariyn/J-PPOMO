@@ -28,6 +28,7 @@ public class Screen extends Application{
 	private Controller c;
 	private PpomoTimer pt;
 	private ProgramManager pm;
+	Stage detailStage;
 	
 	private Parent root;
 	
@@ -42,18 +43,10 @@ public class Screen extends Application{
 		Scene testScene = this.testFunction();
 		
 //		primaryStage.initStyle(StageStyle.UNDECORATED);
-		
+				
 		primaryStage.setTitle("PPOMODORO TIMER");
 		primaryStage.setScene(testScene);
 		this.primaryStage.show();
-
-//		m = NotiManager.getInstance();
-//		pt = PpomoTimer.getInstance();
-//		pm = ProgramManager.getInstance();
-//		
-//		this.primaryStage = primaryStage;
-//		Scene testScene = this.testFunction();
-		
 	}
 	
 	private Scene testFunction() {
@@ -73,24 +66,11 @@ public class Screen extends Application{
 		
 		//dzone.com/articles/handling-keyboard-sortcuts
 		//stackoverflow.com/questions/14357515/javafx-close-window-on-pressing-esc
-		newScene.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
-			KeyCombination keyCombi = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
-						
-			@Override
-			public void handle(KeyEvent event) {
-				if(keyCombi.match(event)) {
-					System.out.println("same!");
-					try {
-						stop();
-						primaryStage.close();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}			
-		});
-		
+
 		return newScene;
+	}
+	
+	public void setStage(Stage s){
+		this.detailStage = s;
 	}
 }	

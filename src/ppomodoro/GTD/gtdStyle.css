@@ -16,6 +16,13 @@
 	-fx-border-width:0 0 1px 0;
 }
 
+.list-cell:filled:selected {
+	-fx-background-color: #A1A19F;
+}
+Label {
+	-fx-text-fill:black;
+}
+
 /*#layoutBox {
 	-fx-border-color: rgb(0,0,0);
 	-fx-border-radius:0px;

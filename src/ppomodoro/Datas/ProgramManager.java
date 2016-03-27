@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.bind.Marshaller.Listener;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import ppomodoro.MainScreen;
+import ppomodoro.PpomodoroWindowInterface;
 import ppomodoro.Datas.Exceptions.NoXmlFileException;
 import ppomodoro.Datas.XmlManager.SaveDataManager;
 import ppomodoro.Datas.XmlManager.XmlManager;
+import ppomodoro.GTDDetail.Screen;
 
 
 //TODO: save every ppomodoro start and end and middle of ppomodoro
@@ -43,6 +47,8 @@ public class ProgramManager {
 		
 		// TODO change this as xml
 		windowList.put("MainScreen", MainScreen.class);
+		windowList.put("GTDList", ppomodoro.GTD.Screen.class);
+		windowList.put("GTDDetail", ppomodoro.GTDDetail.Screen.class);
 		
 		addmitExitListener();
 		
@@ -80,18 +86,66 @@ public class ProgramManager {
 		windowListenerList.add(window);
 		opendWindowList.add(window.getName());
 	}
-	
 	public void openWindow(String windowName) {
 		Class<? extends Application> newClass = this.windowList.get(windowName);
-		
+
+		_openWindow(newClass, windowName, -1, -1);
+	}
+	
+	public void openWindow(Stage parent, String windowName) {
+		Class<? extends Application> newClass = this.windowList.get(windowName);
+
+		_openWindow(newClass, windowName, parent.getX()+parent.getWidth(), parent.getY());
+	}
+	public void openWindow(Stage parent, String windowName, double x, double y) {
+		Class<? extends Application> newClass = this.windowList.get(windowName);
+
+		_openWindow(newClass, windowName, x, y);
+	}
+	public void openGTDDetailWindow(Stage parent, Task task, double x, double y) {
+		String windowName = "GTDDetail";
+		Class<? extends Application> newClass = this.windowList.get(windowName);
+
 		Platform.runLater(()-> {
 			System.out.println("running later");
+			
 			try {
 				System.out.println(String.format("%s, %d", windowName, opendWindowList.indexOf(windowName)));
 				
 				if(opendWindowList.indexOf(windowName) == -1) {
 					System.out.println("inside here");
-					newClass.newInstance().start(new Stage());
+					Stage s = new Stage();
+					if(x != -1)
+						s.setX(x);
+					if(y != -1)
+						s.setY(y);
+					
+					ppomodoro.GTDDetail.Screen screen = (Screen) newClass.newInstance();
+					screen.start(s);
+					screen.setTask(task);
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
+	}
+	private void _openWindow(Class<? extends Application> newClass, String windowName, double locationX, double locationY) {
+		
+		Platform.runLater(()-> {
+			System.out.println("running later");
+			
+			try {
+				System.out.println(String.format("%s, %d", windowName, opendWindowList.indexOf(windowName)));
+				
+				if(opendWindowList.indexOf(windowName) == -1) {
+					System.out.println("inside here");
+					Stage s = new Stage();
+					if(locationX != -1)
+						s.setX(locationX);
+					if(locationY != -1)
+						s.setY(locationY);
+					
+					newClass.newInstance().start(s);					
 				}
 			} catch (Exception e1) {
 				e1.printStackTrace();

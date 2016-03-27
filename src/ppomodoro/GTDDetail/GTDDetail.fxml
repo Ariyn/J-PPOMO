@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.* ?>
+<?import javafx.scene.control.* ?>
+<?import javafx.scene.text.Font ?>
+<?import javafx.geometry.Pos ?>
+<?import javafx.scene.canvas.* ?>
+  
+<VBox xmlns:fx="http://javafx.com/fxml" prefWidth="480" prefHeight="800"
+		fx:controller="ppomodoro.GTDDetail.Controller" spacing="15" alignment="TOP_CENTER" stylesheets="@detailWindow.css">
+	<children>
+	<Label prefHeight="20"></Label>
+		<Label fx:id="iconLabel" prefWidth="150" prefHeight="150" alignment="CENTER"/>
+		<Label fx:id="taskName" prefWidth="150" prefHeight="20" alignment="CENTER"></Label>
+	</children>
+</VBox>
