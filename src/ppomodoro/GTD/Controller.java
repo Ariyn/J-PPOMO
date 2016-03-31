@@ -41,17 +41,7 @@ public class Controller implements Initializable {
 		
 		listView.setItems(TaskManager.getInstance().getObservableTaskList());
 		listView.setCellFactory(p-> new boxListCell());
-//		listView.setCellFactory(new Callback<ListView<String>, javafx.scene.control.ListCell<String>>(){
-//			@Override
-//			public ListCell<String> call(ListView<String> listView) {
-//				boxListCell blc = new boxListCell();
-//				
-//				//Stack Overflow
-//				//http://stackoverflow.com/questions/10949461/javafx-2-click-and-double-click
-//				return blc;
-//			}
-//		});
-		
+
 		addTaskButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {

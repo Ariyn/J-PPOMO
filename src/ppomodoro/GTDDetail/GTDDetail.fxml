@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.* ?>
-<?import javafx.scene.control.* ?>
-<?import javafx.scene.text.Font ?>
+<?import java.lang.*?>
 <?import javafx.geometry.Pos ?>
 <?import javafx.scene.canvas.* ?>
-  
-<VBox xmlns:fx="http://javafx.com/fxml" prefWidth="480" prefHeight="800"
-		fx:controller="ppomodoro.GTDDetail.Controller" spacing="15" alignment="TOP_CENTER" stylesheets="@detailWindow.css">
-	<children>
-	<Label prefHeight="20"></Label>
-		<Label fx:id="iconLabel" prefWidth="150" prefHeight="150" alignment="CENTER"/>
-		<Label fx:id="taskName" prefWidth="150" prefHeight="20" alignment="CENTER"></Label>
-	</children>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.* ?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.* ?>
+<?import javafx.scene.text.Font ?>
+
+<VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="480.0" spacing="15.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="ppomodoro.GTDDetail.Controller">
+  <children>
+    <HBox fx:id="headerBox" prefHeight="20.0">
+      <Label fx:id="backButtonLabel" />
+    </HBox>
+    <Label fx:id="iconLabel" alignment="CENTER" prefHeight="150.0" prefWidth="150.0">
+      <graphic>
+        <ImageView fx:id="iconImageView" fitHeight="150.0" fitWidth="150.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" />
+      </graphic>
+    </Label>
+    <Label fx:id="taskName" alignment="CENTER" prefHeight="20.0" prefWidth="150.0" text="TaskTitle" />
+  </children>
 </VBox>

@@ -35,6 +35,7 @@ public class Screen extends Application{
 	@Override
 	public void init() throws Exception {
 		System.out.println(Thread.currentThread().getName()+": init GTD screen");
+		this.pm = ProgramManager.getInstance();
 	}
 	
 	@Override
@@ -43,7 +44,7 @@ public class Screen extends Application{
 		Scene testScene = this.testFunction();
 		
 //		primaryStage.initStyle(StageStyle.UNDECORATED);
-				
+	
 		primaryStage.setTitle("PPOMODORO TIMER");
 		primaryStage.setScene(testScene);
 		this.primaryStage.show();

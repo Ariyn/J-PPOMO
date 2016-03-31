@@ -41,6 +41,7 @@ public class ProgramManager {
 	private Map<String, Class> configTypes = new HashMap<String, Class>();
 	private Map<String, Object> config = new HashMap<String, Object>();
 	
+	ppomodoro.GTDDetail.Screen gtdDetailWindow = null;
 	
 	public ProgramManager() {
 //		ud = new UserData(xmlDocument);
@@ -105,7 +106,10 @@ public class ProgramManager {
 	public void openGTDDetailWindow(Stage parent, Task task, double x, double y) {
 		String windowName = "GTDDetail";
 		Class<? extends Application> newClass = this.windowList.get(windowName);
-
+		
+		if(this.gtdDetailWindow != null) {
+			this.gtdDetailWindow.getPrimaryStage().close();
+		}
 		Platform.runLater(()-> {
 			System.out.println("running later");
 			
@@ -119,15 +123,22 @@ public class ProgramManager {
 						s.setX(x);
 					if(y != -1)
 						s.setY(y);
-					
+
 					ppomodoro.GTDDetail.Screen screen = (Screen) newClass.newInstance();
 					screen.start(s);
 					screen.setTask(task);
+					this.gtdDetailWindow = screen;
 				}
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		});
+	}
+	public void closeGTDDetailWindow(Stage parent) {
+		if(this.gtdDetailWindow != null) {
+			this.gtdDetailWindow.getPrimaryStage().close();
+			this.gtdDetailWindow = null;
+		}
 	}
 	private void _openWindow(Class<? extends Application> newClass, String windowName, double locationX, double locationY) {
 		

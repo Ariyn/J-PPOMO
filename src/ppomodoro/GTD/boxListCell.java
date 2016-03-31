@@ -42,7 +42,17 @@ public class boxListCell extends ListCell<String>{
 		
 		this.task = this.tm.getTask(text);
 		
-	    if(this.task != null)
+		if(this.task != null)
+			this.task.setUpdater(type -> _update(type));
+		_update();
+	}
+	
+	public void _update(String c) {
+		this._update();
+	}
+	
+	public void _update() {
+		if(this.task != null)
 	    {
 	    	if(this.notInit) {
 				this.handlerInit();
@@ -52,7 +62,6 @@ public class boxListCell extends ListCell<String>{
 	        data.init();
 	        data.setInfo(this.task.getName());
 	        setGraphic(data.getBox());
-	        
 	    }
 	}
 }
