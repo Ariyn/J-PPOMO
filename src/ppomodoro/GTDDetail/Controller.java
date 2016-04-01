@@ -21,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import ppomodoro.Datas.ProgramManager;
 import ppomodoro.Datas.Task;
@@ -30,6 +31,9 @@ public class Controller implements Initializable, EventHandler<MouseEvent> {
 	@FXML Label taskName;
 	@FXML Label backButtonLabel;
 	@FXML HBox headerBox;
+	@FXML Pane DDayPane;
+	@FXML Pane PpomoPane;
+	@FXML Pane MemoPane;
 	
 	Task task;
 	Screen s;
